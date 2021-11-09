@@ -13,6 +13,7 @@ class App extends React.Component {
       cardAttr3: '',
       cardImage: '',
       cardRare: '',
+      isSaveButtonDisabled: true,
     };
     this.onInputChange = this.onInputChange.bind(this);
   }
@@ -21,6 +22,26 @@ class App extends React.Component {
     const { id } = target;
     const value = (target.type === 'checkbox') ? target.checked : target.value;
     this.setState({ [id]: value }, () => {
+      const {
+        cardName,
+        cardDescription,
+        cardAttr1,
+        cardAttr2,
+        cardAttr3,
+        cardImage,
+      } = this.state;
+      const totalAttr = 90;
+      const sum = parseFloat(cardAttr1) + parseFloat(cardAttr2) + parseFloat(cardAttr3);
+      const maxAttr = 210;
+      if (!cardName || !cardDescription || !cardImage
+        || !cardAttr1 || !cardAttr2 || !cardAttr3
+        || cardAttr1 < 0 || cardAttr1 > totalAttr || cardAttr2 < 0
+        || cardAttr2 > totalAttr || cardAttr3 < 0 || cardAttr3 > totalAttr
+        || sum > maxAttr) {
+        this.setState({ isSaveButtonDisabled: true });
+      } else {
+        this.setState({ isSaveButtonDisabled: false });
+      }
     });
   }
 
@@ -34,10 +55,14 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      isSaveButtonDisabled,
     } = this.state;
     return (
       <div>
-        <Form onInputChange={ this.onInputChange } />
+        <Form
+          onInputChange={ this.onInputChange }
+          isSaveButtonDisabled={ isSaveButtonDisabled }
+        />
         <Card
           cardName={ cardName }
           cardDescription={ cardDescription }
