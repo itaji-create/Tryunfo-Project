@@ -75,7 +75,7 @@ class App extends React.Component {
       isSaveButtonDisabled,
     } = this.state;
     return (
-      <div id="main">
+      <div className="main">
         <Form
           cardName={ cardName }
           cardDescription={ cardDescription }

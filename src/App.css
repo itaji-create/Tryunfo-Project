@@ -1,16 +1,16 @@
-#main {
+.main {
   display: flex;
-  width: 100%;
   align-items: center;
+  width: 100%;
   align-self: center;
 }
 
 form {
-  margin: 10px;
   border: solid black;
+  margin: 10px;
   height: 440px;
-  padding: 10px;
   background-color: rgb(218, 178, 126);
+  padding: 10px;
 }
 
 .formItem {
@@ -20,15 +20,15 @@ form {
 .card {
   margin: 10px;
   border: solid black;
-  width: 300px;
   text-align: center;
+  width: 300px;
 }
 
 .card img {
   width: 150px;
 }
 
-#cardImage {
+.imgInput {
   margin-left: 5px;
   width: 162px;
 }
