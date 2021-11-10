@@ -1,15 +1,15 @@
 .main {
-  display: flex;
   align-items: center;
-  width: 100%;
   align-self: center;
+  display: flex;
+  width: 100%;
 }
 
 form {
-  border: solid black;
-  margin: 10px;
-  height: 440px;
   background-color: rgb(218, 178, 126);
+  border: solid black;
+  height: 440px;
+  margin: 10px;
   padding: 10px;
 }
 
@@ -18,8 +18,8 @@ form {
 }
 
 .card {
-  margin: 10px;
   border: solid black;
+  margin: 10px;
   text-align: center;
   width: 300px;
 }

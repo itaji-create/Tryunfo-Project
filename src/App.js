@@ -15,6 +15,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       isSaveButtonDisabled: true,
+      deck: [],
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.dataValidation = this.dataValidation.bind(this);
@@ -22,6 +23,7 @@ class App extends React.Component {
   }
 
   onSaveButtonClick() {
+    this.setState((prevState) => ({ deck: [...prevState.deck, this.deckSave()] }));
     this.setState({
       cardName: '',
       cardDescription: '',
@@ -37,6 +39,29 @@ class App extends React.Component {
     const { id } = target;
     const value = (target.type === 'checkbox') ? target.checked : target.value;
     this.setState({ [id]: value }, () => { this.dataValidation(); });
+  }
+
+  deckSave = () => {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
+    return {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
   }
 
   dataValidation() {
@@ -73,6 +98,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       isSaveButtonDisabled,
+      deck,
     } = this.state;
     return (
       <div className="main">
@@ -99,6 +125,19 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <div>
+          {deck.map((element) => (<Card
+            key={ element.cardName }
+            cardName={ element.cardName }
+            cardDescription={ element.cardDescription }
+            cardAttr1={ element.cardAttr1 }
+            cardAttr2={ element.cardAttr2 }
+            cardAttr3={ element.cardAttr3 }
+            cardImage={ element.cardImage }
+            cardRare={ element.cardRare }
+            cardTrunfo={ element.cardTrunfo }
+          />))}
+        </div>
       </div>
     );
   }
