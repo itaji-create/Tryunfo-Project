@@ -16,10 +16,13 @@ class App extends React.Component {
       cardRare: 'normal',
       isSaveButtonDisabled: true,
       deck: [],
+      hasTrunfo: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.dataValidation = this.dataValidation.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
+    this.hasTrunfo = this.hasTrunfo.bind(this);
   }
 
   onSaveButtonClick() {
@@ -39,6 +42,7 @@ class App extends React.Component {
     const { id } = target;
     const value = (target.type === 'checkbox') ? target.checked : target.value;
     this.setState({ [id]: value }, () => { this.dataValidation(); });
+    console.log(this.state);
   }
 
   deckSave = () => {
@@ -64,6 +68,11 @@ class App extends React.Component {
     };
   }
 
+  hasTrunfo() {
+    const { deck } = this.state;
+    return deck.some((e) => e.cardTrunfo === true);
+  }
+
   dataValidation() {
     const {
       cardName,
@@ -87,6 +96,11 @@ class App extends React.Component {
     }
   }
 
+  deleteCard(event) {
+    event.target.parentNode.remove();
+    console.log(this.state);
+  }
+
   render() {
     const {
       cardName,
@@ -101,44 +115,48 @@ class App extends React.Component {
       deck,
     } = this.state;
     return (
-      <div className="main">
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          onInputChange={ this.onInputChange }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          onSaveButtonClick={ this.onSaveButtonClick }
-        />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
-        <div>
-          {deck.map((element) => (<Card
-            key={ element.cardName }
-            cardName={ element.cardName }
-            cardDescription={ element.cardDescription }
-            cardAttr1={ element.cardAttr1 }
-            cardAttr2={ element.cardAttr2 }
-            cardAttr3={ element.cardAttr3 }
-            cardImage={ element.cardImage }
-            cardRare={ element.cardRare }
-            cardTrunfo={ element.cardTrunfo }
+      <>
+        <div className="main">
+          <Form
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            onInputChange={ this.onInputChange }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+            onSaveButtonClick={ this.onSaveButtonClick }
+            hasTrunfo={ this.hasTrunfo() }
+          />
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </div>
+        <div className="pageDeck">
+          {deck.map((card) => (<Card
+            key={ card.cardName }
+            cardName={ card.cardName }
+            cardDescription={ card.cardDescription }
+            cardAttr1={ card.cardAttr1 }
+            cardAttr2={ card.cardAttr2 }
+            cardAttr3={ card.cardAttr3 }
+            cardImage={ card.cardImage }
+            cardRare={ card.cardRare }
+            cardTrunfo={ card.cardTrunfo }
+            deleteCard={ this.deleteCard }
           />))}
         </div>
-      </div>
+      </>
     );
   }
 }

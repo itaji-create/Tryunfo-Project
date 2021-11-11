@@ -5,10 +5,22 @@
   width: 100%;
 }
 
+.main .card .deleteButton {
+  display: none;
+}
+
+.pageDeck {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  width: 100%;
+}
+
 form {
   background-color: rgb(218, 178, 126);
   border: solid black;
-  height: 440px;
+  height: 460px;
   margin: 10px;
   padding: 10px;
 }
@@ -20,6 +32,7 @@ form {
 .card {
   border: solid black;
   margin: 10px;
+  min-height: 460px;
   text-align: center;
   width: 300px;
 }
