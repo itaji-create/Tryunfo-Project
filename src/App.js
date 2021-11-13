@@ -101,8 +101,10 @@ class App extends React.Component {
   // https://cursos.alura.com.br/forum/topico-remover-elemento-do-array-que-esta-no-state-64599
   deleteCard({ target }) {
     const { deck } = this.state;
+    const magicNumber = -1;
     const name = target.parentNode.firstChild.innerText;
-    const i = deck.findIndex((card) => card.cardName === name);
+    let i = deck.findIndex((card) => card.cardName === name);
+    if (i === magicNumber) i = 0;
     deck.splice(i, 1);
     this.setState({ deck });
   }

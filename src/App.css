@@ -9,7 +9,7 @@
   align-items: center;
   align-self: center;
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   width: 100%;
 }
 
