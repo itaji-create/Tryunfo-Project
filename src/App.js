@@ -15,8 +15,8 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       isSaveButtonDisabled: true,
+      cardTrunfo: false,
       deck: [],
-      hasTrunfo: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.dataValidation = this.dataValidation.bind(this);
@@ -35,6 +35,7 @@ class App extends React.Component {
       cardAttr3: 0,
       cardImage: '',
       cardRare: 'normal',
+      cardTrunfo: false,
     });
   }
 
@@ -42,7 +43,6 @@ class App extends React.Component {
     const { id } = target;
     const value = (target.type === 'checkbox') ? target.checked : target.value;
     this.setState({ [id]: value }, () => { this.dataValidation(); });
-    console.log(this.state);
   }
 
   deckSave = () => {
@@ -70,7 +70,8 @@ class App extends React.Component {
 
   hasTrunfo() {
     const { deck } = this.state;
-    return deck.some((e) => e.cardTrunfo === true);
+    const result = deck.some((e) => e.cardTrunfo === true);
+    return result;
   }
 
   dataValidation() {
@@ -96,9 +97,14 @@ class App extends React.Component {
     }
   }
 
-  deleteCard(event) {
-    event.target.parentNode.remove();
-    console.log(this.state);
+  // deleteCard foi feito com base nos codigos do site
+  // https://cursos.alura.com.br/forum/topico-remover-elemento-do-array-que-esta-no-state-64599
+  deleteCard({ target }) {
+    const { deck } = this.state;
+    const name = target.parentNode.firstChild.innerText;
+    const i = deck.findIndex((card) => card.cardName === name);
+    deck.splice(i, 1);
+    this.setState({ deck });
   }
 
   render() {
@@ -140,6 +146,7 @@ class App extends React.Component {
             cardImage={ cardImage }
             cardRare={ cardRare }
             cardTrunfo={ cardTrunfo }
+            deleteButton={ false }
           />
         </div>
         <div className="pageDeck">
@@ -154,6 +161,7 @@ class App extends React.Component {
             cardRare={ card.cardRare }
             cardTrunfo={ card.cardTrunfo }
             deleteCard={ this.deleteCard }
+            deleteButton={ card }
           />))}
         </div>
       </>
